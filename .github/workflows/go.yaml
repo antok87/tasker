@@ -1,0 +1,123 @@
+name: Go
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+  push:
+    branches:
+      - main
+  release:
+    types:
+      - published
+
+env:
+  IS_PR: ${{github.event_name == 'pull_request' || ''}}
+  IS_MAIN: ${{github.event_name == 'push' || ''}}
+  IS_RELEASE: ${{github.event_name == 'release' || ''}}
+  IMG_REG: ghcr.io
+  IMG_REPO: ${{ github.repository }}
+
+jobs:
+  build:
+    permissions:
+      contents: read
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache/restore@v4
+        with:
+          key: ${{ runner.os }}-go-cache-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-go-
+          path: |
+            ~/.cache/golangci-lint
+            ~/.cache/go-build
+            ~/go/pkg/mod
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ./go.mod
+          cache: false
+
+      - name: Verify code base on PR
+        if: ${{ env.IS_PR }}
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: make -f ci.mk pr-check
+
+      - name: Verify code base on push
+        if: ${{ env.IS_MAIN || env.IS_RELEASE }}
+        run: make -f ci.mk main-check
+
+      - name: Unit test
+        run: make test/unit
+
+      - name: Upload unit test coverage
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unit
+          files: ./target/test/unit/cov/txt/cover.txt
+
+      - name: Upload unit test results
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unit
+          files: ./target/test/unit/junit/junit.xml
+
+      - name: Application test
+        run: make test/app
+
+      - name: Upload application test coverage
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: application
+          files: ./target/test/application/cov/txt/cover.txt
+
+      - name: Upload application test results
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: application
+          files: ./target/test/application/junit/junit.xml
+
+      - name: Lint
+        run: make lint
+
+      - name: Build binary
+        run: make bin
+
+      - uses: actions/cache/save@v4
+        if: ${{ env.IS_MAIN }}
+        with:
+          key: ${{ runner.os }}-go-cache-${{ hashFiles('**/go.sum') }}
+          path: |
+            ~/.cache/golangci-lint
+            ~/.cache/go-build
+            ~/go/pkg/mod
+
+      - name: Build image
+        env:
+          IMG_TAGS: ${{ env.IS_PR && github.event.pull_request.head.sha }} ${{ env.IS_MAIN && github.sha }} ${{ env.IS_RELEASE && github.ref_name }} ${{ env.IS_RELEASE && 'latest' }}
+        run: make img
+
+      - name: Log in to the Container registry
+        if: ${{ env.IS_MAIN || env.IS_RELEASE }}
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.IMG_REG }}
+          username: ${{ env.IMG_REPO }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish image
+        if: ${{ env.IS_MAIN || env.IS_RELEASE }}
+        run: make -f ci.mk push
