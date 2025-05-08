@@ -17,8 +17,8 @@ import (
 	"github.com/go-srvc/mods/sigmod"
 	"github.com/go-srvc/mods/tracemod"
 	"github.com/go-srvc/srvc"
-	"github.com/heppu/go-template/server"
-	"github.com/heppu/go-template/store"
+	"github.com/antok87/tasker/server"
+	"github.com/antok87/tasker/store"
 )
 
 func main() {
