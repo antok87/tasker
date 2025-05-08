@@ -22,6 +22,51 @@ func (UnimplementedHandler) Healthz(ctx context.Context) (r *Healthy, _ error) {
 	return r, ht.ErrNotImplemented
 }
 
+// TasksGet implements GET /tasks operation.
+//
+// Returns list of all task.
+//
+// GET /tasks
+func (UnimplementedHandler) TasksGet(ctx context.Context) (r []Task, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// TasksIDDelete implements DELETE /tasks/{id} operation.
+//
+// Delete  task.
+//
+// DELETE /tasks/{id}
+func (UnimplementedHandler) TasksIDDelete(ctx context.Context, params TasksIDDeleteParams) error {
+	return ht.ErrNotImplemented
+}
+
+// TasksIDGet implements GET /tasks/{id} operation.
+//
+// Returns task by id.
+//
+// GET /tasks/{id}
+func (UnimplementedHandler) TasksIDGet(ctx context.Context, params TasksIDGetParams) (r *Task, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// TasksIDPut implements PUT /tasks/{id} operation.
+//
+// Update task.
+//
+// PUT /tasks/{id}
+func (UnimplementedHandler) TasksIDPut(ctx context.Context, req *NewTask, params TasksIDPutParams) (r *Task, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
+// TasksPost implements POST /tasks operation.
+//
+// Create new task.
+//
+// POST /tasks
+func (UnimplementedHandler) TasksPost(ctx context.Context, req *NewTask) (r *Task, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // NewError creates *ErrorRespStatusCode from error returned by handler.
 //
 // Used for common default response.

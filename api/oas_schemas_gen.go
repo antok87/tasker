@@ -65,3 +65,47 @@ func (s *Healthy) GetMessage() string {
 func (s *Healthy) SetMessage(val string) {
 	s.Message = val
 }
+
+// Ref: #/components/schemas/NewTask
+type NewTask struct {
+	Name string `json:"name"`
+}
+
+// GetName returns the value of Name.
+func (s *NewTask) GetName() string {
+	return s.Name
+}
+
+// SetName sets the value of Name.
+func (s *NewTask) SetName(val string) {
+	s.Name = val
+}
+
+// Ref: #/components/schemas/Task
+type Task struct {
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
+// GetID returns the value of ID.
+func (s *Task) GetID() int64 {
+	return s.ID
+}
+
+// GetName returns the value of Name.
+func (s *Task) GetName() string {
+	return s.Name
+}
+
+// SetID sets the value of ID.
+func (s *Task) SetID(val int64) {
+	s.ID = val
+}
+
+// SetName sets the value of Name.
+func (s *Task) SetName(val string) {
+	s.Name = val
+}
+
+// TasksIDDeleteOK is response for TasksIDDelete operation.
+type TasksIDDeleteOK struct{}

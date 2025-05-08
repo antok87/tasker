@@ -24,6 +24,7 @@ var (
 )
 
 func TestMain(m *testing.M) {
+	os.Setenv("PPROF_ADDR", "127.0.0.1:"+strconv.Itoa(mustFreePort()))
 	os.Setenv("POSTGRES_PORT", strconv.Itoa(mustFreePort()))
 	os.Setenv("POSTGRES_USER", "test")
 	os.Setenv("POSTGRES_PASSWORD", "test")

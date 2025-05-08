@@ -1,4 +1,4 @@
-[![Go Reference](https://pkg.go.dev/badge/github.com/antok87/tasker.svg)](https://pkg.go.dev/github.com/antok87/tasker) [![codecov](https://codecov.io/github/antok87/tasker/graph/badge.svg?token=H3u7Ui9PfC)](https://codecov.io/github/antok87/tasker) ![main](https://github.com/antok87/tasker/actions/workflows/go.yaml/badge.svg?branch=main)
+[![Go Reference](https://pkg.go.dev/badge/github.com/heppu/tasker.svg)](https://pkg.go.dev/github.com/heppu/tasker) [![codecov](https://codecov.io/github/heppu/tasker/graph/badge.svg?token=H3u7Ui9PfC)](https://codecov.io/github/heppu/tasker) ![main](https://github.com/heppu/tasker/actions/workflows/go.yaml/badge.svg?branch=main)
 
 # Go project template
 
@@ -95,4 +95,4 @@ The template is structured to provide a solid foundation while allowing easy cus
 ### CI
 
 - [GitHub Actions](https://docs.github.com/en/actions) - CI workflows
-- [Codecov](https://app.codecov.io/github/antok87/tasker) - Code coverage
+- [Codecov](https://app.codecov.io/github/heppu/tasker) - Code coverage
