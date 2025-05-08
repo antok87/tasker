@@ -1,4 +1,4 @@
-module github.com/antok87/tasker
+module github.com/heppu/tasker
 
 go 1.24.2
 

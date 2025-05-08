@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/go-srvc/mods/sqlxmod"
-	"github.com/antok87/tasker/store"
+	"github.com/heppu/tasker/store"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

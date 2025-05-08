@@ -14,6 +14,36 @@ type Handler interface {
 	//
 	// GET /healthz
 	Healthz(ctx context.Context) (*Healthy, error)
+	// TasksGet implements GET /tasks operation.
+	//
+	// Returns list of all task.
+	//
+	// GET /tasks
+	TasksGet(ctx context.Context) ([]Task, error)
+	// TasksIDDelete implements DELETE /tasks/{id} operation.
+	//
+	// Delete  task.
+	//
+	// DELETE /tasks/{id}
+	TasksIDDelete(ctx context.Context, params TasksIDDeleteParams) error
+	// TasksIDGet implements GET /tasks/{id} operation.
+	//
+	// Returns task by id.
+	//
+	// GET /tasks/{id}
+	TasksIDGet(ctx context.Context, params TasksIDGetParams) (*Task, error)
+	// TasksIDPut implements PUT /tasks/{id} operation.
+	//
+	// Update task.
+	//
+	// PUT /tasks/{id}
+	TasksIDPut(ctx context.Context, req *NewTask, params TasksIDPutParams) (*Task, error)
+	// TasksPost implements POST /tasks operation.
+	//
+	// Create new task.
+	//
+	// POST /tasks
+	TasksPost(ctx context.Context, req *NewTask) (*Task, error)
 	// NewError creates *ErrorRespStatusCode from error returned by handler.
 	//
 	// Used for common default response.

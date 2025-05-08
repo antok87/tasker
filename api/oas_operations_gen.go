@@ -6,5 +6,10 @@ package api
 type OperationName = string
 
 const (
-	HealthzOperation OperationName = "Healthz"
+	HealthzOperation       OperationName = "Healthz"
+	TasksGetOperation      OperationName = "TasksGet"
+	TasksIDDeleteOperation OperationName = "TasksIDDelete"
+	TasksIDGetOperation    OperationName = "TasksIDGet"
+	TasksIDPutOperation    OperationName = "TasksIDPut"
+	TasksPostOperation     OperationName = "TasksPost"
 )

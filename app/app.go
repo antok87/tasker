@@ -7,13 +7,16 @@ import (
 	"log/slog"
 
 	"github.com/go-srvc/srvc"
-	"github.com/antok87/tasker/api"
+	"github.com/heppu/tasker/api"
 )
 
 const ErrServiceNotHealthy = srvc.ErrStr("service not healthy")
 
 type Store interface {
 	Healthy(context.Context) error
+	AddTask(context.Context, api.NewTask) (*api.Task, error)
+	GetTasks(context.Context) ([]api.Task, error)
+	DeleteTasks(context.Context, int64) error
 }
 
 type App struct {
@@ -30,6 +33,18 @@ func (a *App) Healthz(ctx context.Context) (*api.Healthy, error) {
 		return nil, fmt.Errorf("%w: %w", ErrServiceNotHealthy, err)
 	}
 	return &api.Healthy{Message: "OK"}, nil
+}
+
+func (a *App) TasksPost(ctx context.Context, req *api.NewTask) (*api.Task, error) {
+	return a.s.AddTask(ctx, *req)
+}
+
+func (a *App) TasksGet(ctx context.Context) ([]api.Task, error) {
+	return a.s.GetTasks(ctx)
+}
+
+func (a *App) TasksIDDelete(ctx context.Context, params api.TasksIDDeleteParams) error {
+	return a.s.DeleteTasks(ctx, params.ID)
 }
 
 // NewError can be used to provide custom error responses based on the error.
