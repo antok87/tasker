@@ -41,7 +41,7 @@ func TestMain(m *testing.M) {
 			compose.WithOsEnv(),
 		),
 		cmd.New(
-			cmd.WithGoCode("../", "./cmd/demo"),
+			cmd.WithGoCode("../", "./cmd/tasker"),
 			cmd.WithReadyHTTP(appURL+"/api/v1/healthz"),
 			cmd.WithEnvSet(os.Environ()...),
 			cmd.WithGoCover(),

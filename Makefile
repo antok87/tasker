@@ -34,7 +34,7 @@ NOOP              :=
 SPACE             := ${NOOP} ${NOOP}
 
 ### Build variables
-TARGET            = demo
+TARGET            = tasker
 TARGET_DIR        = ${DIST_DIR}/${TARGET}
 TARGET_BIN        = ${TARGET_DIR}/${TARGET}
 TARGET_PKG        = ./cmd/${TARGET}

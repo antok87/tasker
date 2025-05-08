@@ -7,7 +7,7 @@ import (
 	"log/slog"
 
 	"github.com/go-srvc/srvc"
-	"github.com/heppu/go-template/api"
+	"github.com/antok87/tasker/api"
 )
 
 const ErrServiceNotHealthy = srvc.ErrStr("service not healthy")

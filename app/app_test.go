@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/heppu/go-template/api"
-	"github.com/heppu/go-template/app"
+	"github.com/antok87/tasker/api"
+	"github.com/antok87/tasker/app"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

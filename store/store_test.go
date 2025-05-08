@@ -12,7 +12,7 @@ import (
 	"github.com/go-tstr/tstr"
 	"github.com/go-tstr/tstr/dep/compose"
 	"github.com/heppu/errgroup"
-	"github.com/heppu/go-template/store"
+	"github.com/antok87/tasker/store"
 	"github.com/stretchr/testify/require"
 )
 
